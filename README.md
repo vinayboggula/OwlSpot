@@ -127,7 +127,7 @@ Dashboard	Authenticated Users
 Draft Content	Owner Only
 🚀 Installation & Setup
 1️⃣ Clone Repository
-git clone https://github.com/yourusername/owlspot.git
+git clone https://github.com/vinayboggula/OwlSpot.git
 cd owlspot
 
 2️⃣ Install Dependencies
