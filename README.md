@@ -82,19 +82,15 @@ ImageKit (Images & Videos CDN)
 
 🧩 Application Structure
 OwlSpot
+├── client/ # React frontend 
+├── server/ # Node.js backend
+│   ├── controllers/ 
+│   ├── models/ 
+│   ├── routes/ 
+│   ├── middleware/ 
+│   └── configs/ 
 │
-├── Homepage
-│   ├── Memories (Events Feed)
-│   └── Blogs
-│
-├── Event Detail Page
-├── Blog Detail Page
-│
-└── Dashboard (Private)
-    ├── Create Blog
-    ├── Create Event
-    ├── Manage Content
-    └── Comment Moderation
+└── README.md
 
 🗂️ Categories (Unified System)
 
