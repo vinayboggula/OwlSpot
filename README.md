@@ -82,6 +82,7 @@ ImageKit (Images & Videos CDN)
 
 🧩 Application Structure
 OwlSpot
+<<<<<<< HEAD
 ├── client/ # React frontend 
 ├── server/ # Node.js backend
 │   ├── controllers/ 
@@ -91,6 +92,21 @@ OwlSpot
 │   └── configs/ 
 │
 └── README.md
+=======
+│
+├── Homepage
+│   ├── Memories (Events Feed)
+│   └── Blogs
+│
+├── Event Detail Page
+├── Blog Detail Page
+│
+└── Dashboard (Private)
+    ├── Create Blog
+    ├── Create Event
+    ├── Manage Content
+    └── Comment Moderation
+>>>>>>> ded9f30 (file changea)
 
 🗂️ Categories (Unified System)
 
@@ -123,7 +139,11 @@ Dashboard	Authenticated Users
 Draft Content	Owner Only
 🚀 Installation & Setup
 1️⃣ Clone Repository
+<<<<<<< HEAD
 git clone https://github.com/vinayboggula/OwlSpot.git
+=======
+git clone https://github.com/yourusername/owlspot.git
+>>>>>>> ded9f30 (file changea)
 cd owlspot
 
 2️⃣ Install Dependencies
@@ -162,4 +182,8 @@ The goal is to help users document experiences, reflect on them, and observe per
 👨‍💻 Author
 
 Boggula Vinay
+<<<<<<< HEAD
 Computer Science Student | MERN Stack Developer
+=======
+Computer Science Student | MERN Stack Developer
+>>>>>>> ded9f30 (file changea)

@@ -12,7 +12,7 @@ import Layout from "./pages/admin/Layout.jsx"
 import ListBlog from "./pages/admin/ListBlog.jsx"
 import ListEvents from "./pages/admin/ListEvents.jsx"
 import PostForm from './pages/admin/PostForm.jsx'
-import Blog from "./pages/blog.jsx"
+import Blog from "./pages/Blog.jsx"
 import Blogs from './pages/Blogs.jsx'
 import Event from "./pages/Event.jsx"
 import Events from './pages/Events.jsx'
