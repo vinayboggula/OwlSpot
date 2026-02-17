@@ -17,7 +17,7 @@ const BlogList = () => {
             (blog) =>
                 blog.title.toLowerCase().includes(input.toLowerCase()) ||
                 blog.category.toLowerCase().includes(input.toLowerCase())
-        );
+        ); 
     };
     return (
         <div>
