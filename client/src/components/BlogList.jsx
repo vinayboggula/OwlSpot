@@ -19,7 +19,6 @@ const BlogList = () => {
                 blog.category.toLowerCase().includes(input.toLowerCase())
         );
     };
-
     return (
         <div>
             <div className="menu-list flex justify-center gap-4 sm:gap-8 my-10 relative">
