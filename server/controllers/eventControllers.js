@@ -1,7 +1,7 @@
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
 import multer from 'multer';
-import imagekit2 from "../configs/imagekit2.js";
+import imagekit2 from "../configs/imageKit2.js";
 import interpretThumbnailPrompt from "../configs/prompt.js";
 import generateEventThumbnail from "../configs/thumbnail.js";
 import EventComment from '../models/EventComments.js';
