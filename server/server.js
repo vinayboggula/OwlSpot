@@ -13,12 +13,13 @@ dotenv.config();
 
 const app = express();
 const CLIENT_URL = process.env.CLIENT_URL
+const PORT = process.env.PORT
 
 await connectDB();
 
 
 app.use(cors({
-    origin: process.env.CLIENT_URL,
+    origin: CLIENT_URL,
     credentials: true
 }));
 
@@ -30,6 +31,6 @@ app.use("/api/admin", adminRouter);
 app.use('/api/blog', blogRouter);
 app.use('/api/event', eventRouter);
 
-app.listen(process.env.PORT || 7000, () => {
+app.listen(PORT || 7000, () => {
     console.log(`Server running on port ${PORT}`);
 });
