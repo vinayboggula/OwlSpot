@@ -7,7 +7,6 @@ const blogSchema = new mongoose.Schema({
     category: { type: String, required: true },
     image: { type: String, required: true },
     isPublished: { type: Boolean, default: false },
-    // 👇 OWNER OF THE BLOG
     creator: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",

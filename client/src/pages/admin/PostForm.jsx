@@ -59,8 +59,8 @@ const PostForm = () => {
             setIsGenerating(true);
 
             const formData = new FormData();
-            formData.append("image", aiImage);   // 🔥 must be `file`
-            formData.append("text", title);     // 🔥 required by backend
+            formData.append("image", aiImage);
+            formData.append("text", title);
             formData.append("prompt", aiPrompt);
 
             const { data } = await axios.post(
@@ -72,7 +72,7 @@ const PostForm = () => {
             );
 
             if (data.success) {
-                setGeneratedImageUrl(data.thumbnailUrl); // ✅ set event image
+                setGeneratedImageUrl(data.thumbnailUrl);
                 setImage(data.thumbnailUrl)
                 toast.success("Thumbnail generated successfully");
             } else {
@@ -123,7 +123,7 @@ const PostForm = () => {
         // handle form submission logic here
         if (!quillRef.current) return;
 
-        // const text = quillRef.current.root.innerHTML;
+
         const description = quillRef.current.root.innerHTML.trim();
 
         if (
@@ -186,8 +186,6 @@ const PostForm = () => {
         e.preventDefault()
 
         if (!quillRef.current) return;
-
-        // const text = quillRef.current.root.innerHTML;
         const description = quillRef.current.root.innerHTML.trim();
         if (
             !title ||
@@ -316,7 +314,7 @@ const PostForm = () => {
                     </div>
 
                     <p className="mt-4 font-semibold">Generate Event Thumbnail</p>
-                    {/* AI Image Preview */}
+
                     {aiPreview && (
                         <div className="relative mt-2 w-fit">
                             <img
@@ -334,7 +332,7 @@ const PostForm = () => {
                         </div>
                     )}
 
-                    {/* Prompt + controls */}
+
                     <div className="mt-4 flex items-end gap-2 max-w-lg">
                         <label className="cursor-pointer p-1 border rounded-lg">
                             <div className="text-2xl">📷</div>
@@ -364,29 +362,30 @@ const PostForm = () => {
                         </button>
                     </div>
 
-                    {/* Manual upload fallback */}
-                    {/* Manual upload */}
+
                     <div className="mt-4 flex items-start gap-4">
-                        {/* Upload button */}
-                        <label htmlFor="image" className="cursor-pointer">
-                            <img
-                                className={`mt-2 h-18 rounded cursor-pointer ${videos.length >= 5 ? "opacity-80 cursor-not-allowed" : ""
-                                    }`}
-                                src={assets.upload_area}
-                                alt="upload"
-                            />
-                            <input
-                                onChange={(e) => {
-                                    setGeneratedImageUrl(null);
-                                    setAiPreview(null);
-                                    setImage(e.target.files[0]);
-                                }}
-                                type="file"
-                                accept="image/*"
-                                id="image"
-                                hidden
-                            />
-                        </label>
+                        <div className="flex flex-col items-center">
+                            <label htmlFor="image" className="cursor-pointer">
+                                <img
+                                    className={`mt-2 h-18 rounded cursor-pointer ${videos.length >= 5 ? "opacity-80 cursor-not-allowed" : ""
+                                        }`}
+                                    src={assets.upload_area}
+                                    alt="Manual upload"
+                                />
+                                <input
+                                    onChange={(e) => {
+                                        setGeneratedImageUrl(null);
+                                        setAiPreview(null);
+                                        setImage(e.target.files[0]);
+                                    }}
+                                    type="file"
+                                    accept="image/*"
+                                    id="image"
+                                    hidden
+                                />
+                            </label>
+                            <p className="text-xs text-gray-500 mt-1">Manual Thumbnail</p>
+                        </div>
 
                         {/* Thumbnail preview */}
                         <div className="inline-block">

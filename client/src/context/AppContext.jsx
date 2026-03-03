@@ -4,7 +4,7 @@ import toast from "react-hot-toast"
 import { useNavigate } from 'react-router-dom'
 
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL
-axios.defaults.withCredentials = true // 🔥 IMPORTANT
+axios.defaults.withCredentials = true
 
 console.log("BASE URL:", axios.defaults.baseURL)
 
@@ -36,7 +36,6 @@ export const AppProvider = ({ children }) => {
         }
     };
 
-    // 🔥 Restore session from cookie
     const getMe = async () => {
         try {
             const { data } = await axios.get("/api/auth/me");

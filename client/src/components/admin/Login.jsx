@@ -11,7 +11,6 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
-    // ✅ Normal Login
     const handleLogin = async (e) => {
         e.preventDefault();
 
@@ -40,7 +39,7 @@ const Login = () => {
         }
     };
 
-    // ✅ Google Login
+
     const handleGoogleLogin = async (res) => {
         try {
             setLoading(true);
@@ -79,7 +78,6 @@ const Login = () => {
                         </p>
                     </div>
 
-                    {/* ✅ Login Form */}
                     <form
                         onSubmit={handleLogin}
                         className="mt-2 w-full text-gray-600"
@@ -118,13 +116,10 @@ const Login = () => {
                     </form>
 
                     <p className="text-lg text-center my-2">or</p>
-
-                    {/* ✅ Google Login */}
                     <GoogleLogin
                         onSuccess={handleGoogleLogin}
                         onError={() => toast.error("Google login error")}
                     />
-
                     <p className="text-sm text-center p-2">
                         Don't have an account?{" "}
                         <NavLink to="/SignUp" className="text-blue-500">

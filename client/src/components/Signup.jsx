@@ -27,7 +27,7 @@ const Signup = () => {
             if (data.success) {
                 toast.success("Account created");
                 setUser(data.user);
-                navigate("/admin");
+                navigate("/Blogs");
             } else {
                 toast.error(data.message);
             }

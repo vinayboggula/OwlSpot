@@ -9,7 +9,7 @@ const auth = (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
-        req.user = { id: decoded.id } //{id,role}
+        req.user = { id: decoded.id } //id,role
         next()
     } catch (error) {
         res.status(401).json({ success: false, message: "invalid token" })

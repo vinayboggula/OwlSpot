@@ -30,13 +30,6 @@ eventRouter.post(
     ]),
     addEvent
 );
-// eventRouter.get('/events', auth, getMyEvents);
-// eventRouter.post("/delete", auth, deleteEventById);
-// eventRouter.post("/toggle-publish", auth, toggleEventPublish);
-// eventRouter.get("/event-comments", auth, getEventComments)
-
-
-// AI
 eventRouter.post(
     "/generate-thumbnail",
     aiUpload.single("image"),

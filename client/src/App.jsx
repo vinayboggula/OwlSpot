@@ -18,7 +18,7 @@ import Event from "./pages/Event.jsx"
 import Events from './pages/Events.jsx'
 
 const App = () => {
-  const { user } = useAppContext()   // 👈 single source of truth
+  const { user } = useAppContext()   //  single source of truth
 
   return (
     <div>

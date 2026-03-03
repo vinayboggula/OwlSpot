@@ -3,18 +3,17 @@ import Sidebar from "../../components/admin/Sidebar";
 import { useAppContext } from "../../context/AppContext";
 
 const Layout = () => {
-    const { axios, navigate, setUser } = useAppContext()
+    const { axios, navigate, setUser } = useAppContext();
+    const location = useLocation();
 
-    const location = useLocation()
-
-    const isEvents = location.pathname === '/events'
-    const isBlogs = location.pathname === '/'
+    const isEvents = location.pathname.includes("/events");
+    const isBlogs = location.pathname === "/" || location.pathname.includes("/blog");
 
     const logout = async () => {
         await axios.post("/api/auth/logout");
         setUser(null);
         navigate('/');
-    }
+    };
 
     return (
         <>
@@ -26,6 +25,27 @@ const Layout = () => {
                     <img src="/owl.svg" alt="logo" className="w-8 h-8" />
                     <h2 className='font-bold text-2xl'>OwlSpot</h2>
                 </div>
+
+                <div className="flex gap-1 font-bold text-lg bg-orange-100 p-1 rounded-full md-block">
+                    <button
+                        onClick={() => navigate('/events')}
+                        className={`px-2 lg:px-4 py-1 rounded-full transition-all duration-300
+                        ${isEvents ? 'bg-amber-600 text-white shadow-md' : 'text-gray-700'}
+                      `}
+                    >
+                        Events
+                    </button>
+
+                    <button
+                        onClick={() => navigate('/')}
+                        className={`px-2 lg:px-4 py-1 rounded-full transition-all duration-300
+                        ${isBlogs ? 'bg-primary text-white shadow-md' : 'text-gray-700'}
+                      `}
+                    >
+                        Blogs
+                    </button>
+                </div>
+
                 <button
                     onClick={logout}
                     className="flex items-center gap-1 rounded-full text-sm cursor-pointer bg-stone-400 text-black font-bold px-10 py-2.5"
@@ -33,12 +53,13 @@ const Layout = () => {
                     Logout
                 </button>
             </div>
+
             <div className="flex h-[calc(100vh-70px)]">
                 <Sidebar />
                 <Outlet />
             </div>
         </>
-    )
-}
+    );
+};
 
-export default Layout
+export default Layout;

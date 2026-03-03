@@ -16,7 +16,6 @@ const Header = () => {
         inputRef.current.value = ''
     }
 
-
     return (
         <div className='mx-8 sm:mx-16 xl:mx-24 relative'>
             <div className="text-center mt-5 mb-8">

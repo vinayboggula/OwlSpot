@@ -21,8 +21,6 @@ blogRouter.post("/add-blogComment", addComments);
 
 // Authenticated user (owner)
 blogRouter.post("/add", auth, upload.single('image'), addBlog);
-// blogRouter.post("/delete", auth, deleteBlogById);
-// blogRouter.post("/toggle-publish", auth, togglePublish);
 blogRouter.post("/generate", auth, generateContent);
 
 export default blogRouter;
