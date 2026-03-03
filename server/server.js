@@ -18,11 +18,7 @@ await connectDB();
 
 
 app.use(cors({
-<<<<<<< HEAD
     origin: process.env.CLIENT_URL,
-=======
-    origin: CLIENT_URL || 'http://localhost:5173',
->>>>>>> 034d49b (new updates)
     credentials: true
 }));
 
