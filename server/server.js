@@ -31,6 +31,10 @@ app.use("/api/admin", adminRouter);
 app.use('/api/blog', blogRouter);
 app.use('/api/event', eventRouter);
 
+app.get("/", (req, res) => {
+    res.json("hello world");
+});
+
 app.listen(PORT || 7000, () => {
     console.log(`Server running on port ${PORT}`);
 });
