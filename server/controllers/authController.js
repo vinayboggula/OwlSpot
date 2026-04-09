@@ -36,7 +36,7 @@ export const googleLogin = async (req, res) => {
 
         res.cookie("token", jwtToken, {
             httpOnly: true,
-            sameSite: "lax",
+            sameSite: "None",
             secure: false
         });
 
@@ -81,7 +81,7 @@ export const signup = async (req, res) => {
 
         res.cookie("token", jwtToken, {
             httpOnly: true,
-            sameSite: "lax",
+            sameSite: "None",
             secure: false
         });
 
@@ -120,7 +120,7 @@ export const login = async (req, res) => {
 
         res.cookie("token", jwtToken, {
             httpOnly: true,
-            sameSite: "lax",
+            sameSite: "None",
             secure: false
         });
 
