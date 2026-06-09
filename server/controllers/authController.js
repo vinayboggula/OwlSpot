@@ -36,8 +36,8 @@ export const googleLogin = async (req, res) => {
 
         res.cookie("token", jwtToken, {
             httpOnly: true,
-            sameSite: "None",
-            secure: false
+            sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+            secure: process.env.NODE_ENV === "production"
         });
 
         res.json({ success: true, user });
@@ -81,8 +81,8 @@ export const signup = async (req, res) => {
 
         res.cookie("token", jwtToken, {
             httpOnly: true,
-            sameSite: "None",
-            secure: false
+            sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+            secure: process.env.NODE_ENV === "production"
         });
 
         res.json({ success: true, user });
@@ -120,8 +120,8 @@ export const login = async (req, res) => {
 
         res.cookie("token", jwtToken, {
             httpOnly: true,
-            sameSite: "None",
-            secure: false
+            sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+            secure: process.env.NODE_ENV === "production"
         });
 
         res.json({ success: true, user });
