@@ -51,7 +51,6 @@ export const AppProvider = ({ children }) => {
     useEffect(() => {
         fetchBlogs();
         fetchEvents();
-        getMe(); // 👈 restore login
     }, [])
 
     const value = {
