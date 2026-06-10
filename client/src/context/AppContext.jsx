@@ -7,6 +7,7 @@ axios.defaults.baseURL = import.meta.env.VITE_BASE_URL
 axios.defaults.withCredentials = true
 
 console.log("BASE URL:", axios.defaults.baseURL)
+console.log(import.meta.env.VITE_GOOGLE_CLIENT_ID)
 
 const AppContext = createContext()
 

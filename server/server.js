@@ -37,4 +37,5 @@ app.get("/", (req, res) => {
 
 app.listen(PORT || 7000, () => {
     console.log(`Server running on port ${PORT}`);
+    console.log("google login", process.env.GOOGLE_CLIENT_ID)
 });
