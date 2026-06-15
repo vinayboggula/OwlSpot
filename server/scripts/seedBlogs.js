@@ -49,10 +49,6 @@ const seedBlogs = async () => {
             isPublished: true
         }));
 
-
-        console.log(blogs);
-
-        // Insert blogs
         await Blog.insertMany(blogs);
 
         console.log("Blogs seeded successfully");
