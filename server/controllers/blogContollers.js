@@ -4,6 +4,7 @@ import main from "../configs/grok.js";
 import s3 from "../configs/s3.js";
 import Blog from '../models/Blog.js';
 import Comment from '../models/Comment.js';
+import { attachSignedUrls } from "../utils/s3Helpers.js";
 
 export const addBlog = async (req, res) => {
     try {
@@ -35,7 +36,7 @@ export const addBlog = async (req, res) => {
             })
         );
 
-        const image = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
+        const image = fileName;
 
         // Delete temp file
         fs.unlink(imageFile.path, () => { });
@@ -68,8 +69,15 @@ export const addBlog = async (req, res) => {
 export const getAllBlogs = async (req, res) => {
     try {
         const blogs = await Blog.find({ isPublished: true })
-            .sort({ createdAt: -1 }).populate("creator", "name email");
-        res.json({ success: true, blogs })
+            .sort({ createdAt: -1 })
+            .populate("creator", "name email");
+
+        await attachSignedUrls(blogs);
+
+        res.json({
+            success: true,
+            blogs,
+        });
     } catch (error) {
         res.json({ success: false, message: error.message })
     }
@@ -81,9 +89,12 @@ export const getBlogById = async (req, res) => {
         const { blogId } = req.params
         const blog = await Blog.findById(blogId)
             .populate("creator", "name email");
+
         if (!blog) {
             return res.json({ success: false, message: "Blog not found" })
         }
+
+        await attachSignedUrl(blog);
         res.json({ success: true, blog })
     } catch (error) {
         res.json({ success: false, message: error.message })
