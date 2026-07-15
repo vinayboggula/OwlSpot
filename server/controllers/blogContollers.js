@@ -1,6 +1,7 @@
+import { PutObjectCommand } from "@aws-sdk/client-s3";
 import fs from "fs";
 import main from "../configs/grok.js";
-import imagekit from "../configs/imageKit.js";
+import s3 from "../configs/s3.js";
 import Blog from '../models/Blog.js';
 import Comment from '../models/Comment.js';
 
@@ -23,17 +24,20 @@ export const addBlog = async (req, res) => {
 
         const fileBuffer = await fs.promises.readFile(imageFile.path);
 
-        //  ImageKit2 v4 upload
-        const response = await imagekit.files.upload({
-            file: fileBuffer.toString('base64'),
-            fileName: imageFile.originalname,
-            folder: "/blogs"
-        });
+        const fileName = `blogs/${Date.now()}-${imageFile.originalname}`;
 
-        // ImageKit2 v4 URL (manual)
-        const image = `${process.env.IMAGEKIT_URL_ENDPOINT}${response.filePath}`;
+        await s3.send(
+            new PutObjectCommand({
+                Bucket: process.env.AWS_BUCKET_NAME,
+                Key: fileName,
+                Body: fileBuffer,
+                ContentType: imageFile.mimetype
+            })
+        );
 
-        // cleanup temp file
+        const image = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
+
+        // Delete temp file
         fs.unlink(imageFile.path, () => { });
 
         await Blog.create({

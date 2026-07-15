@@ -38,8 +38,6 @@ const seedBlogs = async () => {
 
         const posts = response.data;
 
-
-        // Transform posts into OwlSpot blogs
         const blogs = posts.map((post) => ({
             title: post.title,
             subTitle: post.description || post.title,
