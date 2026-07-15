@@ -2,6 +2,7 @@ import Blog from "../models/Blog.js"
 import Comment from "../models/Comment.js"
 import EventComment from "../models/EventComments.js"
 import Events from "../models/Events.js"
+import { deleteFromS3 } from "../utils/deleteFromS3.js"
 
 // export const adminLogin = async (req, res) => {
 //     try {
@@ -57,6 +58,7 @@ export const deleteBlogById = async (req, res) => {
     if (blog.creator.toString() !== req.user.id) {
         return res.status(403).json({ message: "Not authorized" });
     }
+    await deleteFromS3(blog.image);
 
     await blog.deleteOne();
     await Comment.deleteMany({ blog: blog._id });
