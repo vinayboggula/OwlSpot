@@ -7,7 +7,6 @@ import {
     getBlogById,
     getBlogComments
 } from '../controllers/blogContollers.js';
-
 import auth from '../middleware/auth.js';
 import upload from '../middleware/multer.js';
 

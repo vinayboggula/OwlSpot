@@ -1,7 +1,4 @@
-import { PutObjectCommand } from "@aws-sdk/client-s3";
-import fs from "fs";
 import main from "../configs/grok.js";
-import s3 from "../configs/s3.js";
 import Blog from '../models/Blog.js';
 import Comment from '../models/Comment.js';
 import { attachSignedUrl, attachSignedUrls } from "../utils/s3Helpers.js";
@@ -23,23 +20,7 @@ export const addBlog = async (req, res) => {
         // taken owner id from jwt
         const creator = req.user.id;
 
-        const fileBuffer = await fs.promises.readFile(imageFile.path);
-
-        const fileName = `blogs/${Date.now()}-${imageFile.originalname}`;
-
-        await s3.send(
-            new PutObjectCommand({
-                Bucket: process.env.AWS_BUCKET_NAME,
-                Key: fileName,
-                Body: fileBuffer,
-                ContentType: imageFile.mimetype
-            })
-        );
-
-        const image = fileName;
-
-        // Delete temp file
-        fs.unlink(imageFile.path, () => { });
+        const image = await uploadToS3(imageFile, "blogs");
 
         await Blog.create({
             creator,
