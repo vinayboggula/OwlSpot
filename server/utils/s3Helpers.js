@@ -5,6 +5,14 @@ import s3 from "../configs/s3.js";
 export const generateSignedUrl = async (key) => {
     if (!key) return null;
 
+    // Already a complete URL (ImageKit, Unsplash, Picsum, etc.)
+    if (
+        key.startsWith("http://") ||
+        key.startsWith("https://")
+    ) {
+        return key;
+    }
+
     const command = new GetObjectCommand({
         Bucket: process.env.AWS_BUCKET_NAME,
         Key: key,
