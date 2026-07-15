@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import main from "../configs/grok.js";
 import Blog from '../models/Blog.js';
 import Comment from '../models/Comment.js';
@@ -50,18 +51,23 @@ export const addBlog = async (req, res) => {
 //public blogs
 export const getAllBlogs = async (req, res) => {
     try {
-        const blogs = await Blog.find({ isPublished: true })
-            .sort({ createdAt: -1 })
-            .populate("creator", "name email");
+        const blogs = (
+            await Blog.find({ isPublished: true })
+                .sort({ createdAt: -1 })
+                .populate("creator", "name email")
+        ).map(blog => blog.toObject());
 
         await attachSignedUrls(blogs);
 
-        res.json({
+        return res.json({
             success: true,
             blogs,
         });
     } catch (error) {
-        res.json({ success: false, message: error.message })
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        })
     }
 }
 
@@ -69,6 +75,13 @@ export const getAllBlogs = async (req, res) => {
 export const getBlogById = async (req, res) => {
     try {
         const { blogId } = req.params
+
+        if (!mongoose.Types.ObjectId.isValid(blogId)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid Blog ID"
+            });
+        }
         const blog = await Blog.findById(blogId)
             .populate("creator", "name email");
 
@@ -79,7 +92,10 @@ export const getBlogById = async (req, res) => {
         await attachSignedUrl(blog);
         res.json({ success: true, blog })
     } catch (error) {
-        res.json({ success: false, message: error.message })
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        })
     }
 }
 
@@ -91,9 +107,12 @@ export const addComments = async (req, res) => {
             return res.status(400).json({ message: "Invalid blog" });
         }
         await Comment.create({ blog, name, content })
-        res.json({ success: true, message: 'comment added' })
+        return res.json({ success: true, message: 'comment added' })
     } catch (error) {
-        res.json({ success: false, message: error.message })
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        })
     }
 }
 
@@ -101,10 +120,13 @@ export const getBlogComments = async (req, res) => {
     try {
         const { blogId } = req.params
         const comments = await Comment.find({ blog: blogId }).sort({ createdAt: -1 })
-        res.json({ success: true, comments })
+        return res.json({ success: true, comments })
 
     } catch (error) {
-        res.json({ success: false, message: error.message })
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        })
     }
 }
 
@@ -113,9 +135,12 @@ export const generateContent = async (req, res) => {
         const { prompt } = req.body
 
         const content = await main(prompt)
-        res.json({ success: true, content })
+        return res.json({ success: true, content })
 
     } catch (error) {
-        res.json({ success: false, message: error.message })
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        })
     }
 }

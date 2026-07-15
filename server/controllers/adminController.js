@@ -51,19 +51,44 @@ export const getMyBlogs = async (req, res) => {
 
 //delete a blog
 export const deleteBlogById = async (req, res) => {
-    const blog = await Blog.findById(req.body.id);
+    try {
+        const blog = await Blog.findById(req.body.id);
 
-    if (!blog) return res.status(404).json({ message: "Blog not found" });
+        if (!blog) {
+            return res.status(404).json({
+                success: false,
+                message: "Blog not found",
+            });
+        }
 
-    if (blog.creator.toString() !== req.user.id) {
-        return res.status(403).json({ message: "Not authorized" });
+        if (blog.creator.toString() !== req.user.id) {
+            return res.status(403).json({
+                success: false,
+                message: "Not authorized",
+            });
+        }
+
+        await deleteFromS3(blog.image);
+
+        await blog.deleteOne();
+
+        await Comment.deleteMany({
+            blog: blog._id,
+        });
+
+        return res.json({
+            success: true,
+            message: "Blog deleted successfully",
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+        });
     }
-    await deleteFromS3(blog.image);
-
-    await blog.deleteOne();
-    await Comment.deleteMany({ blog: blog._id });
-
-    res.json({ success: true });
 };
 
 //get comments on blogs
@@ -116,9 +141,8 @@ export const deleteCommentById = async (req, res) => {
 //toggle publish or unpublish blog
 export const toggleBlog = async (req, res) => {
     try {
-        const { id } = req.body;
 
-        const blog = await Blog.findById(id);
+        const blog = await Blog.findById(req.body.data.id);
         if (!blog) {
             return res.status(404).json({ message: "Blog not found" });
         }
@@ -141,9 +165,9 @@ export const toggleBlog = async (req, res) => {
 export const updateMyEvent = async (req, res) => {
     try {
         const { id } = req.params
-        const event = await Event.findByIdAndUpdate(id, req.body, { new: true })
+        const event = await Events.findByIdAndUpdate(id, req.body, { new: true })
         if (!event) {
-            return res.status(404).json({ success: false, message: "Blog not found" })
+            return res.status(404).json({ success: false, message: "Event not found" })
         }
         res.status(200).json({ success: true, message: "Event updated!" })
     }
@@ -172,7 +196,9 @@ export const deleteEventById = async (req, res) => {
     }
 
     await event.deleteOne();
-    await Comment.deleteMany({ event: event._id });
+    await EventComment.deleteMany({
+        event: event._id,
+    });
 
     res.json({ success: true });
 };

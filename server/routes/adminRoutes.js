@@ -33,7 +33,7 @@ adminRouter.post("/toggle-blog", auth, toggleBlog);
 
 // 👤 Logged-in user (ownership-based)
 adminRouter.get("/events", auth, getMyEvents);
-adminRouter.put("event/event-update", auth, updateMyEvent)
+adminRouter.put("/event/event-update", auth, updateMyEvent)
 adminRouter.delete("/delete-event", auth, deleteEventById);
 adminRouter.get("/eventComments", auth, getEventComments);
 adminRouter.get("/event-dashboard", auth, getEventDashboard);

@@ -15,7 +15,8 @@ const BlogTableItem = ({ blog, fetchBlogs, index }) => {
         const confirm = window.confirm('Are you sure you want to delete this blog?')
         if (!confirm) return;
         try {
-            const { data } = await axios.post('/api/admin/delete-blog', { id: blog._id })
+            const { data } = await axios.delete('/api/admin/delete-blog', { data: { id: blog._id } })
+
             if (data.success) {
                 toast.success(data.message)
                 await fetchBlogs()
@@ -29,7 +30,8 @@ const BlogTableItem = ({ blog, fetchBlogs, index }) => {
 
     const togglePublish = async () => {
         try {
-            const { data } = await axios.post('/api/admin/toggle-blog', { id: blog._id })
+            const { data } = await axios.post('/api/admin/toggle-blog', { id: blog._id });
+            console.log(data)
             if (data.success) {
                 toast.success(data.message)
                 await fetchBlogs()
