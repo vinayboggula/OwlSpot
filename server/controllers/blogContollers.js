@@ -2,6 +2,7 @@ import main from "../configs/grok.js";
 import Blog from '../models/Blog.js';
 import Comment from '../models/Comment.js';
 import { attachSignedUrl, attachSignedUrls } from "../utils/s3Helpers.js";
+import { uploadToS3 } from "../utils/s3Upload.js";
 
 export const addBlog = async (req, res) => {
     try {
